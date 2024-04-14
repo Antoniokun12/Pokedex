@@ -26,6 +26,12 @@
               <ul>
                 <li v-for="stat in pokemon.stats" :key="stat.name">
                   {{ stat.name }}: {{ stat.value }}
+                  <div class="stat-bar">
+                    <div
+                      class="stat-fill"
+                      :style="{ width: (stat.value / 255) * 100 + '%' }"
+                    ></div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -70,10 +76,10 @@ import axios from "axios";
 let pokemon = ref([]);
 let name = ref("");
 let altura = ref("");
-const carta = ref(false)
+const carta = ref(false);
 
 async function traer() {
-  carta.value = true
+  carta.value = true;
   try {
     let response = await axios.get(
       "https://pokeapi.co/api/v2/pokemon/" + name.value
@@ -105,18 +111,18 @@ async function traer() {
 </script>
 
 <style scoped>
-body{
+body {
   margin: 0%;
   padding: 0%;
   background-color: antiquewhite;
 }
 
-h1{
+h1 {
   font-size: 50px;
   margin: 0;
 }
 
-h2{
+h2 {
   font-size: 25px;
 }
 
@@ -125,7 +131,6 @@ h2{
   flex-direction: column;
   align-items: center;
   height: 100%;
-  
 }
 
 .con1 {
@@ -135,11 +140,11 @@ h2{
   text-align: center;
 }
 
-.input{
+.input {
   width: 200px;
 }
 
-.boton{
+.boton {
   cursor: pointer;
   margin-top: 10px;
   width: 140px;
@@ -216,5 +221,20 @@ h2{
   height: 120px;
   margin-top: 50px;
   margin-bottom: auto;
+}
+
+/* //barras */
+
+.stat-bar {
+  background-color: #f0f0f0;
+  height: 20px;
+  width: 80%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  background-color: #4caf50;
+  height: 100%;
 }
 </style>
